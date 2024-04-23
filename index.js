@@ -96,10 +96,6 @@ app.use(express.static(path.join(__dirname, "./Frontend/dist")));
 
 // catch all routes for react spa
 
-app.get("/", () => {
-  console.log("hello");
-});
-
 const locality = [];
 
 // function to get all localities
@@ -157,7 +153,6 @@ app.get("*", async (req, res) => {
     }
   }
 
-  console.log("ldofadifj", locality);
   const filePath = path.resolve(__dirname, "Frontend/dist", "index.html");
   let htmlContent = await readFile(filePath, "utf-8");
 

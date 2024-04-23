@@ -48,10 +48,6 @@ const Blogs = () => {
       <Helmet>
         <title>Blog - Delhi Mazza Call Girls & Escorts Latest News</title>
         <link rel="canonical" href={`${window?.location?.href}`} />
-        <meta
-          name="description"
-          content="Delhi Mazza Call Girls & Escorts blogs, Latest News, Article and Contact WhatsApp Number with Profile List in Indian Cities"
-        />
       </Helmet>
       <h1 className="text-2xl font-bold text-center mb-4">Blog</h1>
       <div className="w-full  flex justify-center gap-10 flex-wrap">
