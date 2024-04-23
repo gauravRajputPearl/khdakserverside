@@ -147,7 +147,7 @@ app.get("*", async (req, res) => {
       {
         // console.log("locality", locality);
         title = `Call Girls in ${location}, Escort Service Available 24x7 in ${location}`;
-        descriptoin = `"Being one of the top call girls in ${location} adverts it features best call girl Contact Numbers"`;
+        descriptoin = `"Being one of the top call girls in ${location} adverts it features best call girl Contact Numbers, and online escort girl booking 24x7 for Home And Hotel Room Services."`;
       }
     }
 
