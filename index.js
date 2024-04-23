@@ -101,7 +101,7 @@ const locality = [];
 // function to get all localities
 const getLocalities = async () => {
   const data = await City.find();
-  console.log(data);
+
   for (let i = 0; i < data.length; i++) {
     locality.push(data[i]?.name);
     for (let j = 0; j < data[i]?.localities?.length; j++) {
@@ -113,7 +113,7 @@ const getLocalities = async () => {
 
 app.get("*", async (req, res) => {
   const locality = await getLocalities();
-  console.log(locality);
+
   let location = "";
   let title, descriptoin;
 
@@ -122,7 +122,7 @@ app.get("*", async (req, res) => {
     if (match) {
       location = match[1].replace(/-/g, " ");
     }
-    console.log("lkjjkljkl", location);
+
     // let locality = await City.findOne({ localities: location });
     // console.log(locality, city);
   }
