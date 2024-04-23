@@ -120,41 +120,39 @@ app.get("*", async (req, res) => {
 
   let location = "";
   let title, descriptoin;
-
-  if (req.url.includes("call-girls-in-")) {
-    const match = req.url?.match(/call-girls-in-(.*)\//);
-    if (match) {
-      location = match[1].replace(/-/g, " ");
-    }
-
-    // let locality = await City.findOne({ localities: location });
-    // console.log(locality, city);
-  }
-
+  console.log(req.url);
   if (req.url === "/blog/") {
     title = "Blog - Delhi Mazza Call Girls & Escorts Latest News";
     descriptoin = `"Delhi Mazza Call Girls & Escorts blogs, Latest News, Article and Contact WhatsApp Number with Profile List in Indian Cities"`;
   } else if (req.url === "/contact-us/") {
     title = "Contact Us - Delhi Mazza Call Girls and Escort Profiles";
     descriptoin = `"Contact Us at Delhi Mazza For Advertising, Booking and Reports Profile Listing"`;
-  }
-  const data = await City.find({
-    $or: [
-      {
-        localities: { $in: new RegExp(location, "i") },
-      },
-      {
-        name: { $in: new RegExp(location, "i") },
-      },
-    ],
-  });
-
-  if (data) {
-    {
-      // console.log("locality", locality);
-      title = `Call Girls in ${location}, Escort Service Available 24x7 in ${location}`;
-      descriptoin = `"Being one of the top call girls in ${location} adverts it features best call girl Contact Numbers"`;
+  } else if (req.url.includes("call-girls-in-")) {
+    const match = req.url?.match(/call-girls-in-(.*)\//);
+    if (match) {
+      location = match[1].replace(/-/g, " ");
     }
+    const data = await City.find({
+      $or: [
+        {
+          localities: { $in: new RegExp(location, "i") },
+        },
+        {
+          name: { $in: new RegExp(location, "i") },
+        },
+      ],
+    });
+
+    if (data) {
+      {
+        // console.log("locality", locality);
+        title = `Call Girls in ${location}, Escort Service Available 24x7 in ${location}`;
+        descriptoin = `"Being one of the top call girls in ${location} adverts it features best call girl Contact Numbers"`;
+      }
+    }
+
+    // let locality = await City.findOne({ localities: location });
+    // console.log(locality, city);
   }
 
   const filePath = path.resolve(__dirname, "Frontend/dist", "index.html");
