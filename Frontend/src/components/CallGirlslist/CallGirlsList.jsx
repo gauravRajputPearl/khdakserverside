@@ -100,7 +100,7 @@ const CallGirlsList = ({ BASE_URL }) => {
                     <a
                       href={`https://api.whatsapp.com/send?phone=${encodeURIComponent(
                         data?.phoneNumber
-                      )}`}
+                      )}&text=${window.location.href}`}
                       target="_blank"
                       rel="noopener noreferrer"
                       class="w-full rounded-lg border-2 bg-green-600 px-2 py-1  md:px-4 md:py-2 font-medium text-white text-center"
