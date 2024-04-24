@@ -101,6 +101,7 @@ app.use(express.static(path.join(__dirname, "./Frontend/dist")));
 // catch all routes for react spa
 
 const locality = [];
+let notFound = false;
 
 // function to get all localities
 const getLocalities = async () => {
@@ -153,6 +154,10 @@ app.get("*", async (req, res) => {
 
     // let locality = await City.findOne({ localities: location });
     // console.log(locality, city);
+  } else if (req.url !== "/favicon.ico") {
+    notFound = true;
+  } else {
+    notFound = false;
   }
 
   const filePath = path.resolve(__dirname, "Frontend/dist", "index.html");
@@ -169,7 +174,7 @@ app.get("*", async (req, res) => {
     `<meta name="description" content=${descriptoin} data-rh="true" data-react-helmet="true"/>`
   );
 
-  res.send(htmlContent);
+  res.send(notFound ? "404 Page not found" : htmlContent);
 });
 
 app.listen(PORT, () => {

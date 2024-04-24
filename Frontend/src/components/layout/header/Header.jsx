@@ -94,6 +94,7 @@ const Header = () => {
                         navigate(`/`);
                       } else {
                         navigate(item.path);
+                        window.location.reload();
                       }
                     }}
                   >
