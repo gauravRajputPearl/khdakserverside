@@ -49,8 +49,7 @@ app.use(
             "https://www.admin.delhimazza.com/",
             "https://admin.delhimazza.com",
             "https://www.delhimazza.com",
-            "https://khdakserverside.onrender.com/api/v1",
-            "https://khdakserverside.onrender.com/",
+            "http://localhost:6500",
           ],
           credentials: true,
           methods: ["GET", "PUT", "POST", "PATCH", "DELETE"],
@@ -73,8 +72,7 @@ app.use(
             "https://www.admin.delhimazza.com/",
             "https://admin.delhimazza.com",
             "https://www.delhimazza.com",
-            "https://khdakserverside.onrender.com/api/v1",
-            "https://khdakserverside.onrender.com/",
+            "http://localhost:6500",
           ],
           credentials: true,
           methods: ["GET", "PUT", "POST", "PATCH", "DELETE"],
@@ -104,20 +102,20 @@ const locality = [];
 let notFound = false;
 
 // function to get all localities
-const getLocalities = async () => {
-  const data = await City.find();
+// const getLocalities = async () => {
+//   const data = await City.find();
 
-  for (let i = 0; i < data.length; i++) {
-    locality.push(data[i]?.name);
-    for (let j = 0; j < data[i]?.localities?.length; j++) {
-      locality.push(data[i]?.localities[j]);
-    }
-  }
-  return locality;
-};
+//   for (let i = 0; i < data.length; i++) {
+//     locality.push(data[i]?.name);
+//     for (let j = 0; j < data[i]?.localities?.length; j++) {
+//       locality.push(data[i]?.localities[j]);
+//     }
+//   }
+//   return locality;
+// };
 
 app.get("*", async (req, res) => {
-  const locality = await getLocalities();
+  // const locality = await getLocalities();
 
   let location = "";
   let title, descriptoin;
