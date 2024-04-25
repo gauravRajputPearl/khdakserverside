@@ -85,15 +85,15 @@ const CallGirlsList = ({ BASE_URL }) => {
                 </div>
                 <div class="flex flex-col justify-between ">
                   <div>
-                    <p class="text-text-lg leading-4 sm:text-lg md:text-2xl font-medium text-gray-700 mb-2">
+                    <h2 class="text-text-lg leading-4 sm:text-lg md:text-2xl font-medium text-gray-700 mb-2">
                       {data?.title}
-                    </p>
-                    <p
+                    </h2>
+                    <h3
                       dangerouslySetInnerHTML={{ __html: data?.description }}
                       class="text-xs md:text-sm line-clamp-5 md:line-clamp-4 font-medium text-gray-700"
                     >
                       {/* {data?.description} */}
-                    </p>
+                    </h3>
                   </div>
 
                   <div class=" grid grid-cols-2 gap-3 text-xs md:text-lg">

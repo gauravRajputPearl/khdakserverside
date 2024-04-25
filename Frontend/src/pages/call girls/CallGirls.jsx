@@ -28,9 +28,9 @@ const CallGirls = () => {
 
   return (
     <div className="mb-10 flex justify-center flex-col bg-gradient-to-r from-amber-50 to-cyan-50 text-gray-700 ">
-      <h1 className="font-bold md:text-3xl text-2xl lg:text-4xl p-3 ">
+      <h4 className="font-bold md:text-3xl text-2xl lg:text-4xl p-3 ">
         Find Us in More Top Cities in India
-      </h1>
+      </h4>
       <div className=" bg-gradient-to-r from-amber-50 to-cyan-50 text-gray-700  p-3 flex gap-2 overflow-hidden flex-wrap">
         {Array.isArray(locationData) &&
           locationData.length > 0 &&

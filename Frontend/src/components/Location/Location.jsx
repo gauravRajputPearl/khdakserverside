@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 
-import { Redirect } from "react-router-dom";
 import {
   getLocationData,
   selectedLocation,
@@ -51,9 +50,9 @@ const Location = ({ BASE_URL }) => {
   }, []);
   return (
     <div className="w-full p-4 bg-gradient-to-r from-amber-50 to-cyan-50 text-gray-700 mb-5">
-      <h1 className="text-2xl font-bold sm:text-4xl">
+      <h4 className="text-2xl font-bold sm:text-4xl">
         Areas of Top Call Girls in {selectedCity}
-      </h1>
+      </h4>
       {Array.isArray(location) &&
         location.length > 0 &&
         location.map((data) => {
@@ -71,8 +70,6 @@ const Location = ({ BASE_URL }) => {
               if (urlcity) {
                 dispatch(changeCity(data?.name));
                 dispatch(changeLocality(""));
-                // <Redirect to={`call-girls-in-${data?.name?.toLowerCase()}`} />;
-                // navigate(`call-girls-in-${data?.name?.toLowerCase()}`);
               }
               console.log(urlcity);
             }
