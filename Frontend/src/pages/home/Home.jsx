@@ -119,9 +119,9 @@ const Home = () => {
             <h1 class="mb-4 text-3xl font-extrabold tracking-tight leading-none text-gray-900 md:text-3xl lg:text-4xl ">
               {heroSectionData?.title?.replace(
                 /\[city\]/g,
-                (locality && locality[0]?.toUpperCase() + locality.slice(1)) ||
-                  cityName[0].toUpperCase() + cityName.slice(1) ||
-                  "Delhi"
+                (locality && locality).replace(/\b\w/g, (match) =>
+                  match.toUpperCase()
+                ) || cityName.replace(/\b\w/g, (match) => match.toUpperCase())
               )}
             </h1>
           ) : (
@@ -132,8 +132,10 @@ const Home = () => {
               {" "}
               {`${metaTitle?.replace(
                 /\[city\]/g,
-                (locality && locality[0]?.toUpperCase() + locality?.slice(1)) ||
-                  cityName[0].toUpperCase() + cityName.slice(1) ||
+                (locality && locality).replace(/\b\w/g, (match) =>
+                  match.toUpperCase()
+                ) ||
+                  cityName.replace(/\b\w/g, (match) => match.toUpperCase()) ||
                   "Delhi"
               )}`}
             </title>
@@ -142,8 +144,10 @@ const Home = () => {
               name="description"
               content={`${metaDescription?.replace(
                 /\[city\]/g,
-                (locality && locality[0]?.toUpperCase() + locality?.slice(1)) ||
-                  cityName[0].toUpperCase() + cityName.slice(1) ||
+                (locality && locality).replace(/\b\w/g, (match) =>
+                  match.toUpperCase()
+                ) ||
+                  cityName.replace(/\b\w/g, (match) => match.toUpperCase()) ||
                   "Delhi"
               )}`}
             />
@@ -156,10 +160,12 @@ const Home = () => {
                 __html: heroSectionData?.description
                   ?.replace(
                     /\[city\]/g,
-                    (locality &&
-                      locality[0]?.toUpperCase() + locality.slice(1)) ||
-                      (cityName &&
-                        cityName[0].toUpperCase() + cityName.slice(1)) ||
+                    (locality && locality).replace(/\b\w/g, (match) =>
+                      match.toUpperCase()
+                    ) ||
+                      (cityName && cityName).replace(/\b\w/g, (match) =>
+                        match.toUpperCase()
+                      ) ||
                       "Delhi"
                   )
                   ?.replace(
@@ -201,9 +207,12 @@ const Home = () => {
                         __html: data?.description
                           ?.replace(
                             /\[city\]/g,
-                            (locality &&
-                              locality[0]?.toUpperCase() + locality.slice(1)) ||
-                              cityName[0].toUpperCase() + cityName.slice(1) ||
+                            (locality && locality).replace(/\b\w/g, (match) =>
+                              match.toUpperCase()
+                            ) ||
+                              cityName.replace(/\b\w/g, (match) =>
+                                match.toUpperCase()
+                              ) ||
                               "Delhi"
                           )
                           ?.replace(

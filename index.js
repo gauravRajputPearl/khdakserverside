@@ -143,23 +143,28 @@ app.get("*", async (req, res) => {
         },
       ],
     });
+    const newLocation = location.replace(/\b\w/g, (match) =>
+      match.toUpperCase()
+    );
 
     if (data) {
       {
         // console.log("locality", locality);
-        title = `Call Girls in ${location}, Escort Service Available 24x7 in ${location}`;
-        descriptoin = `"Being one of the top call girls in ${location} adverts it features best call girl Contact Numbers, and online escort girl booking 24x7 for Home And Hotel Room Services."`;
+        title = `Call Girls in ${newLocation}, Escort Service Available 24x7 in ${newLocation}`;
+        descriptoin = `"Being one of the top call girls in ${newLocation} adverts it features best call girl Contact Numbers, and online escort girl booking 24x7 for Home And Hotel Room Services."`;
       }
     }
 
     // let locality = await City.findOne({ localities: location });
     // console.log(locality, city);
   } else if (req.url !== "/favicon.ico") {
+    console.log("log1", req.url);
     notFound = true;
   } else {
     notFound = false;
+    console.log("log2", req.url);
   }
-
+  console.log("log1", req.url);
   const filePath = path.resolve(__dirname, "Frontend/dist", "index.html");
   let htmlContent = await readFile(filePath, "utf-8");
 

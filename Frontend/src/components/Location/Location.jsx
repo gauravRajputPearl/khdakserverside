@@ -51,7 +51,8 @@ const Location = ({ BASE_URL }) => {
   return (
     <div className="w-full p-4 bg-gradient-to-r from-amber-50 to-cyan-50 text-gray-700 mb-5">
       <h4 className="text-2xl font-bold sm:text-4xl">
-        Areas of Top Call Girls in {selectedCity}
+        Areas of Top Call Girls in{" "}
+        {selectedCity.replace(/\b\w/g, (match) => match.toUpperCase())}
       </h4>
       {Array.isArray(location) &&
         location.length > 0 &&
