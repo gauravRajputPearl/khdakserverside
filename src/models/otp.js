@@ -3,6 +3,11 @@ import mongoose from "mongoose";
 const otpSchema = new mongoose.Schema(
   {
     otp: String,
+    type:{
+      type: String,
+      default:"LOGIN",
+      enum:["LOGIN","FORGOTPASSWORD"]
+    },
     email: String,
     expiresAt: {
       type: Date,
@@ -12,6 +17,5 @@ const otpSchema = new mongoose.Schema(
   { timestamps: true, expireAfterSeconds: 300 } // 5minutes
 );
 
-// otpSchema.index({ expire_at: 1 }, { expireAfterSeconds: 2 });
 
 export default mongoose.model("OTP", otpSchema, "otp");
