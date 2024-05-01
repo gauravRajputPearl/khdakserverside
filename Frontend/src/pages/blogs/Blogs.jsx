@@ -95,7 +95,7 @@ const Blogs = () => {
                     dangerouslySetInnerHTML={{
                       __html: data?.description,
                     }}
-                    class="mb-3 font-normal text-gray-700 h-22 overflow-hidden "
+                    class="mb-3 font-normal text-gray-700 h-22 overflow-hidden !line-clamp-6 "
                   ></p>
                 </div>
                 <div

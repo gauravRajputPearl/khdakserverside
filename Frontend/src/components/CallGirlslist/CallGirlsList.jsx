@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useParams, useSearchParams } from "react-router-dom";
 import logo from "../../assets/delhimazzaLogo.png";
+import CallgirllistSkeleton from "../SkeletonUI/CallgirllistSkeleton";
 
 // import { getContact } from "../../features/slices/contactSlice";
 
@@ -43,8 +44,7 @@ const CallGirlsList = ({ BASE_URL }) => {
 
   return (
     <div>
-      {Array.isArray(contactData) &&
-        contactData?.length > 0 &&
+      {Array.isArray(contactData) && contactData?.length > 0 ? (
         contactData
           .filter((data) => {
             if (locality) {
@@ -117,7 +117,14 @@ const CallGirlsList = ({ BASE_URL }) => {
                 </div>
               </div>
             );
-          })}
+          })
+      ) : (
+        <>
+          <CallgirllistSkeleton />
+          <CallgirllistSkeleton />
+          <CallgirllistSkeleton />
+        </>
+      )}
     </div>
   );
 };

@@ -7,12 +7,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { Helmet } from "react-helmet";
 import CallGirls from "../call girls/CallGirls";
 import { changeCity, changeLocality } from "../../features/slices/contactSlice";
+import HeroSectionskeleton from "../../components/SkeletonUI/HeroSectionskeleton";
 
 const Home = () => {
   const params = useParams();
   const navigate = useNavigate();
   const city = params?.city?.toString()?.toLowerCase();
-  console.log("hii", params);
 
   // useState
   const [heroSectionData, setHeroSectionData] = useState(null);
@@ -34,48 +34,39 @@ const Home = () => {
     dispatch(changeCity("Delhi"));
     dispatch(changeLocality(""));
   }
-  console.log(params.city);
-  const BASE_URL = import.meta.env.VITE_BASE_URL;
-  console.log(BASE_URL);
 
-  // const BASE_URL = "http://localhost:6500/api/v1";
+  const BASE_URL = import.meta.env.VITE_BASE_URL;
 
   // getting the hero section data
 
   const getDehiHeroSectionData = async () => {
     try {
       const response = await axios.get(`${BASE_URL}/delhiHeroSection`);
-      console.log(response?.data);
+
       setHeroSectionData(response?.data?.data[0]);
-    } catch (error) {
-      console.log(error.message);
-    }
+    } catch (error) {}
   };
 
   const delhiFooterSection = async () => {
     try {
       const response = await axios.get(`${BASE_URL}/delhiFooter`);
-      console.log(response?.data);
+
       setFooterSectionData(response?.data?.data);
-    } catch (error) {
-      console.log(error.message);
-    }
+    } catch (error) {}
   };
 
   const getHeroSectionData = async () => {
     try {
       const response = await axios.get(`${BASE_URL}/heroSection`);
-      console.log(response?.data);
+
       setHeroSectionData(response?.data?.data[0]);
-    } catch (error) {
-      console.log(error.message);
-    }
+    } catch (error) {}
   };
 
   const FooterSection = async () => {
     try {
       const response = await axios.get(`${BASE_URL}/footer`);
-      console.log(response?.data);
+
       setFooterSectionData(response?.data?.data);
     } catch (error) {
       console.log(error.message);
@@ -108,14 +99,14 @@ const Home = () => {
     //   return params;
     // });
   }, [cityName, locality]);
-  console.log("helllo", cityName, locality);
+
   // function
 
   return (
     <div className="items-center px-4 max-w-screen-2xl mx-auto md:px-8">
       <section class="bg-white ">
-        <div class=" px-4 mx-auto max-w-screen-xl text-center pt-4 lg:pt-8 lg:px-12">
-          {heroSectionData ? (
+        {heroSectionData ? (
+          <div class=" px-4 mx-auto max-w-screen-xl text-center pt-4 lg:pt-8 lg:px-12">
             <h1 class="mb-4 text-3xl font-extrabold tracking-tight leading-none text-gray-900 md:text-3xl lg:text-4xl ">
               {heroSectionData?.title?.replace(
                 /\[city\]/g,
@@ -124,36 +115,33 @@ const Home = () => {
                 ) || cityName.replace(/\b\w/g, (match) => match.toUpperCase())
               )}
             </h1>
-          ) : (
-            "loading"
-          )}
-          <Helmet>
-            <title>
-              {" "}
-              {`${metaTitle?.replace(
-                /\[city\]/g,
-                (locality && locality).replace(/\b\w/g, (match) =>
-                  match.toUpperCase()
-                ) ||
-                  cityName.replace(/\b\w/g, (match) => match.toUpperCase()) ||
-                  "Delhi"
-              )}`}
-            </title>
-            <link rel="canonical" href={`${window?.location?.href}`} />
-            <meta
-              name="description"
-              content={`${metaDescription?.replace(
-                /\[city\]/g,
-                (locality && locality).replace(/\b\w/g, (match) =>
-                  match.toUpperCase()
-                ) ||
-                  cityName.replace(/\b\w/g, (match) => match.toUpperCase()) ||
-                  "Delhi"
-              )}`}
-            />
-          </Helmet>
 
-          {heroSectionData ? (
+            <Helmet>
+              <title>
+                {" "}
+                {`${metaTitle?.replace(
+                  /\[city\]/g,
+                  (locality && locality).replace(/\b\w/g, (match) =>
+                    match.toUpperCase()
+                  ) ||
+                    cityName.replace(/\b\w/g, (match) => match.toUpperCase()) ||
+                    "Delhi"
+                )}`}
+              </title>
+              <link rel="canonical" href={`${window?.location?.href}`} />
+              <meta
+                name="description"
+                content={`${metaDescription?.replace(
+                  /\[city\]/g,
+                  (locality && locality).replace(/\b\w/g, (match) =>
+                    match.toUpperCase()
+                  ) ||
+                    cityName.replace(/\b\w/g, (match) => match.toUpperCase()) ||
+                    "Delhi"
+                )}`}
+              />
+            </Helmet>
+
             <div
               id="HeroSectionDescription"
               dangerouslySetInnerHTML={{
@@ -181,10 +169,10 @@ const Home = () => {
               }}
               className=" text-lg font-normal text-black lg:text-xl sm:px-16 xl:px-28 dark:text-gray-400"
             ></div>
-          ) : (
-            "loading"
-          )}
-        </div>
+          </div>
+        ) : (
+          <HeroSectionskeleton />
+        )}
       </section>
       <section class=" ">
         <div class=" px-4 mx-auto max-w-screen-xl text-center  lg:px-12">
