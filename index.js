@@ -123,12 +123,16 @@ app.get("*", async (req, res) => {
   let title, descriptoin;
   console.log(req.url);
   if (req.url === "/blog/") {
+    notFound = false;
     title = "Blog - Delhi Mazza Call Girls & Escorts Latest News";
     descriptoin = `"Delhi Mazza Call Girls & Escorts blogs, Latest News, Article and Contact WhatsApp Number with Profile List in Indian Cities"`;
   } else if (req.url === "/contact-us/") {
+    notFound = false;
     title = "Contact Us - Delhi Mazza Call Girls and Escort Profiles";
     descriptoin = `"Contact Us at Delhi Mazza For Advertising, Booking and Reports Profile Listing"`;
+    console.log("log0", req.url);
   } else if (req.url.includes("call-girls-in-")) {
+    notFound = false;
     const match = req.url?.match(/call-girls-in-(.*)\//);
     if (match) {
       location = match[1].replace(/-/g, " ");
@@ -157,14 +161,16 @@ app.get("*", async (req, res) => {
 
     // let locality = await City.findOne({ localities: location });
     // console.log(locality, city);
-  } else if (req.url !== "/favicon.ico") {
+  } else if (!req.url) {
     console.log("log1", req.url);
-    notFound = true;
-  } else {
     notFound = false;
+  } else {
+    // notFound = false;
+    notFound = true;
+
     console.log("log2", req.url);
   }
-  console.log("log1", req.url);
+  console.log("log1111", req.url);
   const filePath = path.resolve(__dirname, "Frontend/dist", "index.html");
   let htmlContent = await readFile(filePath, "utf-8");
 
@@ -179,7 +185,9 @@ app.get("*", async (req, res) => {
     `<meta name="description" content=${descriptoin} data-rh="true" data-react-helmet="true"/>`
   );
 
-  res.send(notFound ? "404 Page not found" : htmlContent);
+  // app.use((req, res, next) => {
+  notFound ? res.redirect("/") : res.send(htmlContent);
+  // });
 });
 
 app.listen(PORT, () => {

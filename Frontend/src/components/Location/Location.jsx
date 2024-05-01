@@ -15,7 +15,7 @@ import {
 import { changeCity, changeLocality } from "../../features/slices/contactSlice";
 
 const Location = ({ BASE_URL }) => {
-  const [location, setLocation] = useState();
+  const [location, setLocation] = useState(null);
   const params = useParams();
   const navigate = useNavigate();
   // const [searchParams, setSearchParams] = useSearchParams();
@@ -48,6 +48,56 @@ const Location = ({ BASE_URL }) => {
   useEffect(() => {
     getLocation();
   }, []);
+
+  useEffect(() => {
+    console.log(params.city);
+    console.log(location);
+    if (params?.city && location) {
+      const urlLocality = params.city.split("-").slice(3).join(" "); // Extracting locality name
+      console.log(urlLocality);
+      const matchedLocation = location.find((loc) =>
+        loc.localities.some(
+          (locality) => locality.toLowerCase() === urlLocality.toLowerCase()
+        )
+      );
+      if (matchedLocation) {
+        dispatch(changeCity(matchedLocation.name));
+        dispatch(changeLocality(urlLocality));
+      }
+    }
+  }, [params.city, location]);
+
+  // function findLocationByLocality(locality) {
+  //   for (const loc of location) {
+  //     console.log(loc.localities);
+  //     if (loc?.localities?.includes(locality?.toUpperCase())) {
+  //       console.log("Match found:", loc.name, locality);
+  //       return loc; // Return the matched location object
+  //     }
+  //   }
+  //   console.log("No match found for locality:", locality);
+  //   return null;
+  // }
+
+  // useEffect(() => {
+  //   if (params?.city) {
+  //     if (!location == null) {
+  //       const parts = params?.city.split("-");
+  //       // Get the last part of the split string
+  //       const cityName = parts[parts.length - 1];
+  //       // Remove trailing slash if present
+  //       const formattedCityName = cityName.endsWith("/")
+  //         ? cityName.slice(0, -1)
+  //         : cityName;
+  //       // Now formattedCityName should contain the correct city name
+  //       console.log(formattedCityName);
+  //       const matchedLocation = findLocationByLocality(formattedCityName);
+  //       // Now you can use matchedLocation for further processing
+  //       console.log(matchedLocation);
+  //     }
+  //   }
+  // }, [location]);
+
   return (
     <div className="w-full p-4 bg-gradient-to-r from-amber-50 to-cyan-50 text-gray-700 mb-5">
       <h4 className="text-2xl font-bold sm:text-4xl">
@@ -57,21 +107,21 @@ const Location = ({ BASE_URL }) => {
       {Array.isArray(location) &&
         location.length > 0 &&
         location.map((data) => {
-          console.log(
-            "rhis is how we roll",
-            // params?.city?.includes(data?.name.toLowerCase())
-            params?.city
-          );
+          const isLocation = location.includes("noida");
+          if (isLocation) {
+            console.log("yes");
+          }
 
           {
-            if (params?.city !== "call-girls-in-greater-noida") {
-              const urlcity = params?.city
-                ?.toLowerCase()
-                ?.includes(data?.name?.toLowerCase());
-              if (urlcity) {
-                dispatch(changeCity(data?.name));
-                dispatch(changeLocality(""));
-              }
+            console.log(params?.city);
+            console.log(params?.city?.split("-").slice(3).join(" "));
+            const urlcity =
+              params?.city?.split("-").slice(3).join(" ") ===
+              data?.name?.toLowerCase();
+            if (urlcity) {
+              dispatch(changeCity(data?.name));
+              dispatch(changeLocality(""));
+
               console.log(urlcity);
             }
           }

@@ -71,7 +71,7 @@ const CallGirlsList = ({ BASE_URL }) => {
               <div class=" bg-gradient-to-r from-amber-50 to-cyan-50 text-gray-700 w-full mb-10 grid grid-cols-[50%_auto] md:grid-cols-[20%_auto]  rounded-xl border border-spacing-2 border-red-600 px-1 md:px-4 md:pb-2 py-2 text-left md:text-left">
                 <div class="relative md:mb-0 h-[150px] w-[120px] md:h-[180px] md:w-[180px] mb-10  overflow-hidden">
                   <img
-                    class="rounded-lg h-full w-full object-cover"
+                    class="rounded-lg h-[150px] w-[120px] md:h-[180px] md:w-[180px] object-cover"
                     src={data?.profileImage}
                     alt=""
                   />
