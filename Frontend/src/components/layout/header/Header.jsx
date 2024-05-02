@@ -32,8 +32,9 @@ const Header = () => {
                 dispatch(changeLocality(""));
               }}
               src={logo}
-              height={80}
+              height="90"
               alt="Delhimazza.jpg"
+              width="249"
             />
           </Link>
           <div className="md:hidden">

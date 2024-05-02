@@ -123,6 +123,12 @@ const CallGirlsList = ({ BASE_URL }) => {
           <CallgirllistSkeleton />
           <CallgirllistSkeleton />
           <CallgirllistSkeleton />
+          <CallgirllistSkeleton />
+          <CallgirllistSkeleton />
+          <CallgirllistSkeleton />
+          <CallgirllistSkeleton />
+          <CallgirllistSkeleton />
+          <CallgirllistSkeleton />
         </>
       )}
     </div>

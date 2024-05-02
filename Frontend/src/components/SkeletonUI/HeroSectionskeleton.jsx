@@ -6,7 +6,7 @@ const HeroSectionskeleton = () => {
       <h1 class="bg-gray-300 mb-4 text-3xl font-extrabold tracking-tight leading-none text-gray-300 md:text-3xl lg:text-4xl ">
         Call Girls in Janakpuri & Escorts Profile with Numbers
       </h1>
-
+   
       <div className="h-[146px] text-lg font-normal text-black lg:text-xl sm:px-16 xl:px-28 dark:text-gray-400">
         {" "}
         <p className="h-[65px] bg-gray-300"></p>

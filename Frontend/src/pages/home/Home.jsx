@@ -100,7 +100,13 @@ const Home = () => {
     // });
   }, [cityName, locality]);
 
-  // function
+  // redirect to home for a specific route
+  useEffect(() => {
+    console.log(params?.city);
+    if (params.city === "cheap-call-girls-in-delhi") {
+      navigate("/");
+    }
+  }, []);
 
   return (
     <div className="items-center px-4 max-w-screen-2xl mx-auto md:px-8">

@@ -107,6 +107,7 @@ const Blogs = () => {
                         .replace(/ /g, "-")}`,
                       { state: data }
                     );
+                    window.location.reload();
                   }}
                   class=" h-10  inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white mx-5 my-5 bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 "
                 >

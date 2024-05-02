@@ -5,14 +5,10 @@ import { authRouter } from "./src/routes/Auth/authRoutes.js";
 import heroSectionRouter from "./src/routes/HeroSection/heroSectionroutes.js";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
-
 import delhiHeroSectionRouter from "./src/routes/HeroSection/delhiHeroSectionRoutes.js";
-
 import cors from "cors";
 import footerRouter from "./src/routes/Footer/footerRoutes.js";
-
 import delhiFooterRouter from "./src/routes/Footer/delhiFooterRoutes.js";
-
 import locationRouter from "./src/routes/location/locationRoutes.js";
 import contactRouter from "./src/routes/contact/contactRoute.js";
 import mailRouter from "./src/routes/Mail/mailRoutes.js";
@@ -20,7 +16,7 @@ import blogRouter from "./src/routes/blog/blogRoutes.js";
 import emailRouter from "./src/routes/email/emailRoutes.js";
 import path from "path";
 import { City } from "./src/models/location/locationModel.js";
-
+import { Blog } from "./src/models/blogModel/blogModel.js";
 const app = express();
 const PORT = 6500;
 const __filename = fileURLToPath(import.meta.url);
@@ -121,16 +117,38 @@ app.get("*", async (req, res) => {
 
   let location = "";
   let title, descriptoin;
-  console.log(req.url);
+
   if (req.url === "/blog/") {
+    console.log("blogpagekdkfjdjf", req.url);
     notFound = false;
     title = "Blog - Delhi Mazza Call Girls & Escorts Latest News";
     descriptoin = `"Delhi Mazza Call Girls & Escorts blogs, Latest News, Article and Contact WhatsApp Number with Profile List in Indian Cities"`;
+  } else if (req.url.startsWith("/blog/")) {
+    console.log(
+      "inside blog section-------------------------------------------------------------"
+    );
+
+    notFound = false;
+    const blogPostSlug = req.url.substring(6)?.replace(/-/g, " ");
+
+    const data1 = await Blog.findOne({
+      title: new RegExp("^" + blogPostSlug + "$", "i"),
+    });
+
+    if (!data1) {
+      notFound = true;
+      console.log("not data 1", notFound);
+    } else {
+      title = data1?.title;
+      descriptoin = `"${data1?.description
+        ?.replace(/<[^>]+>/g, "")
+        .slice(0, 150)}"`;
+      notFound = false;
+    }
   } else if (req.url === "/contact-us/") {
     notFound = false;
     title = "Contact Us - Delhi Mazza Call Girls and Escort Profiles";
     descriptoin = `"Contact Us at Delhi Mazza For Advertising, Booking and Reports Profile Listing"`;
-    console.log("log0", req.url);
   } else if (req.url.includes("call-girls-in-")) {
     notFound = false;
     const match = req.url?.match(/call-girls-in-(.*)\//);
@@ -163,14 +181,13 @@ app.get("*", async (req, res) => {
     // console.log(locality, city);
   } else if (!req.url) {
     console.log("log1", req.url);
+
     notFound = false;
   } else {
-    // notFound = false;
     notFound = true;
-
-    console.log("log2", req.url);
   }
-  console.log("log1111", req.url);
+
+  // process.exit()
   const filePath = path.resolve(__dirname, "Frontend/dist", "index.html");
   let htmlContent = await readFile(filePath, "utf-8");
 

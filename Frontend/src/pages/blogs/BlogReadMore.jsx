@@ -4,6 +4,7 @@ import { Helmet } from "react-helmet";
 import logo from "../../assets/delhimazzaLogo.png";
 
 const BlogReadMore = () => {
+
   const { state: data } = useLocation();
 
   // usestate
