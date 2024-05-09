@@ -51,12 +51,16 @@ const Contact = () => {
       </Helmet>
       <div class="max-w-screen-md mx-auto p-5">
         <div class="text-center mb-16">
-          <p class="mt-4 text-sm leading-7 text-gray-500 font-regular uppercase">
+          <h1 class="mt-4 text-sm leading-7 text-gray-500 font-regular uppercase">
             Contact
-          </p>
+          </h1>
           <h3 class="text-3xl sm:text-4xl leading-normal font-extrabold tracking-tight text-gray-900">
             Get In <span class="text-indigo-600">Touch</span>
           </h3>
+          <h4 className="text-gray-800">
+            For Contacts Advertising, Listing Reports, and Information Fill in
+            The form and Click the Send button We Replying 7 Working Days.
+          </h4>
         </div>
 
         <form class="w-full" onSubmit={(e) => handleSubmit(e)}>

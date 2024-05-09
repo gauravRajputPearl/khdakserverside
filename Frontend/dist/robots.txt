@@ -1,5 +1,6 @@
 
+https://www.delhimazza.com/robots.txt
 User-agent: *
-
 Disallow: /cgi-bin/
+Disallow: /tag/*
 Sitemap: https://www.delhimazza.com/sitemap.xml

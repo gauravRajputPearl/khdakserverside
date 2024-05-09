@@ -4,7 +4,6 @@ import { Helmet } from "react-helmet";
 import logo from "../../assets/delhimazzaLogo.png";
 
 const BlogReadMore = () => {
-
   const { state: data } = useLocation();
 
   // usestate
@@ -19,11 +18,14 @@ const BlogReadMore = () => {
   return (
     <div className="space-y-2 mb-8 mx-2">
       <div className="border rounded-lg border-slate-300 p-3 mt-6 sm:mt-10 sm:mx-48 bg-gradient-to-r from-amber-50 to-cyan-50 text-gray-700 text-center">
-        <div className="font-bold text-4xl text-gray-700">{data?.title}</div>
+        <h1 className="font-bold text-4xl text-gray-700">{data?.title}</h1>
         <Helmet>
-          <title>{data?.title}</title>
+          <title>{data?.title?.slice(0, 60)}</title>
           <link rel="canonical" href={`${window?.location?.href}`} />
-          <meta name="description" content={`${blogMetaDescription}`} />
+          <meta
+            name="description"
+            content={`${blogMetaDescription?.slice(0, 160)}`}
+          />
         </Helmet>
       </div>
       <div className="border rounded-lg  border-slate-300 p-6 bg-gradient-to-r from-amber-50 to-cyan-50 text-gray-700 space-y-6 text-center flex flex-col sm:mx-48">

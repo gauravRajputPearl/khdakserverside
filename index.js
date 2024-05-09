@@ -98,6 +98,7 @@ app.use(express.static(path.join(__dirname, "./Frontend/dist")));
 
 const locality = [];
 let notFound = false;
+let notHome = false;
 
 // function to get all localities
 // const getLocalities = async () => {
@@ -121,6 +122,7 @@ app.get("*", async (req, res) => {
   if (req.url === "/blog/") {
     console.log("blogpagekdkfjdjf", req.url);
     notFound = false;
+    notHome = true;
     title = "Blog - Delhi Mazza Call Girls & Escorts Latest News";
     descriptoin = `"Delhi Mazza Call Girls & Escorts blogs, Latest News, Article and Contact WhatsApp Number with Profile List in Indian Cities"`;
   } else if (req.url.startsWith("/blog/")) {
@@ -129,6 +131,7 @@ app.get("*", async (req, res) => {
     );
 
     notFound = false;
+    notHome = true;
     const blogPostSlug = req.url.substring(6)?.replace(/-/g, " ");
 
     const data1 = await Blog.findOne({
@@ -137,20 +140,37 @@ app.get("*", async (req, res) => {
 
     if (!data1) {
       notFound = true;
+      notHome = true;
       console.log("not data 1", notFound);
     } else {
       title = data1?.title;
       descriptoin = `"${data1?.description
         ?.replace(/<[^>]+>/g, "")
-        .slice(0, 150)}"`;
+        .slice(0, 60)}"`;
       notFound = false;
+      notHome = true;
     }
+  } else if (req.url === "/not-found/") {
+    notFound = false;
+    notHome = true;
+  } else if (req.url === "/privacy-policy") {
+    notFound = false;
+    notHome = true;
+    title = "privacy policy - Delhi Mazza Call Girls and Escort Profiles";
+    descriptoin = `"privacy policy - Delhi Mazza Call Girls and Escort Profiles"`;
+  } else if (req.url === "/terms-and-conditions") {
+    notFound = false;
+    notHome = true;
+    title = "Terms & Conditions - Delhi Mazza Call Girls and Escort Profiles";
+    descriptoin = `"Terms & Conditions - Delhi Mazza Call Girls and Escort Profiles"`;
   } else if (req.url === "/contact-us/") {
     notFound = false;
+    notHome = true;
     title = "Contact Us - Delhi Mazza Call Girls and Escort Profiles";
     descriptoin = `"Contact Us at Delhi Mazza For Advertising, Booking and Reports Profile Listing"`;
   } else if (req.url.includes("call-girls-in-")) {
     notFound = false;
+    notHome = true;
     const match = req.url?.match(/call-girls-in-(.*)\//);
     if (match) {
       location = match[1].replace(/-/g, " ");
@@ -183,8 +203,10 @@ app.get("*", async (req, res) => {
     console.log("log1", req.url);
 
     notFound = false;
+    notHome = true;
   } else {
     notFound = true;
+    notHome = true;
   }
 
   // process.exit()
@@ -197,13 +219,73 @@ app.get("*", async (req, res) => {
     `<title>${title}</title>`
   );
 
+  // replace og.Title meta tag
+  htmlContent = htmlContent.replace(
+    /<meta\s+property="og:title"\s+content="([^"]*)"\s*\/?>/,
+    ` <meta property="og:title" content="${title}">`
+  );
+
+  // replace og.Description meta tag
+  htmlContent = htmlContent.replace(
+    /<meta\s+property="og:description"\s+content="([^"]*)"\s*\/?>/,
+    ` <meta property="og:description" content=${descriptoin}>`
+  );
+
+  // replace og:image:alt meta tag
+  htmlContent = htmlContent.replace(
+    /<meta\s+property="og:image:alt"\s+content="([^"]*)"\s*\/?>/,
+    ` <meta property="og:image:alt" content="${title}">`
+  );
+  // replace og url
+  htmlContent = htmlContent.replace(
+    /<meta\s+property="og:url"\s+content="([^"]*)"\s*\/?>/,
+    `<meta property="og:url" content="https://www.delhimazza.com${req?.url}" />`
+  );
+
+  // Remove Twitter title meta tag
+  htmlContent = htmlContent.replace(
+    /<meta\s+name="twitter:title"\s+content="([^"]*)"\s*\/?>/,
+    `<meta name="twitter:title" content="${title}">`
+  );
+
+  // Remove Twitter description meta tag
+  htmlContent = htmlContent.replace(
+    /<meta\s+name="twitter:description"\s+content="([^"]*)"\s*\/?>/,
+    `<meta name="twitter:description" content=${descriptoin}>`
+  );
+
+  // Remove Twitter image alt meta tag
+  htmlContent = htmlContent.replace(
+    /<meta\s+name="twitter:image:alt"\s+content="([^"]*)"\s*\/?>/,
+    `<meta name="twitter:image:alt" content="${title}">`
+  );
+  // if not home url, then remove these from the index.html
+  if (notHome) {
+    // Remove dcterms.Title meta tag
+    htmlContent = htmlContent.replace(
+      /<meta\s+name="dcterms.Title"\s+content="([^"]*)"\s*\/?>/,
+      ""
+    );
+
+    // Remove dcterms.Description meta tag
+    htmlContent = htmlContent.replace(
+      /<meta\s+name="dcterms.Description"\s+content="([^"]*)"\s*\/?>/,
+      ""
+    );
+    // remove the script from the other pages than home page
+    htmlContent = htmlContent.replace(
+      /<script[^>]*type="application\/ld\+json"[^>]*>[\s\S]*?<\/script>/gi,
+      ""
+    );
+  }
+
   htmlContent = htmlContent.replace(
     /<meta\s+name="description"\s+content="([^"]*)"\s*\/?>/,
     `<meta name="description" content=${descriptoin} data-rh="true" data-react-helmet="true"/>`
   );
 
   // app.use((req, res, next) => {
-  notFound ? res.redirect("/") : res.send(htmlContent);
+  notFound ? res.redirect("/not-found/") : res.send(htmlContent);
   // });
 });
 

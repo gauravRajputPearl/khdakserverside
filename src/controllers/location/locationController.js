@@ -8,7 +8,7 @@ export const addCity = async (req, res) => {
   // Check if the city already exists
   let city = await City.findOne({ name: cityName });
 
-  const data = await database.find({ name: search, locality: { $in: search } });
+  // const data = await database.find({ name: search, locality: { $in: search } });
   if (!city) {
     city = new City({ name: cityName });
     await city.save();

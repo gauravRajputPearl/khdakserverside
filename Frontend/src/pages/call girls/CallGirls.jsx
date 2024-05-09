@@ -28,16 +28,16 @@ const CallGirls = () => {
 
   return (
     <div className="mb-10 flex justify-center flex-col bg-gradient-to-r from-amber-50 to-cyan-50 text-gray-700 ">
-      <h4 className="font-bold md:text-3xl text-2xl lg:text-4xl p-3 ">
+      <h5 className="font-bold md:text-3xl text-2xl lg:text-4xl p-3 ">
         Find Us in More Top Cities in India
-      </h4>
+      </h5>
       <div className=" bg-gradient-to-r from-amber-50 to-cyan-50 text-gray-700  p-3 flex gap-2 overflow-hidden flex-wrap">
         {Array.isArray(locationData) &&
           locationData.length > 0 &&
           locationData?.map((data) => {
             return (
               <div>
-                <h1
+                <p
                   className="text-2xl text-pink-600 font-bold bg-white rounded-lg p-3 cursor-pointer m-2"
                   onClick={(e) => {
                     cityHandler(e, data?.name);
@@ -45,7 +45,7 @@ const CallGirls = () => {
                   }}
                 >
                   {data?.name}
-                </h1>
+                </p>
                 {/* <ul className="flex justify-start gap-6">
                   {data?.localities?.map((item) => {
                     return (

@@ -11,6 +11,9 @@ import { store } from "./features/store.js";
 import { Provider } from "react-redux";
 import BlogReadMore from "./pages/blogs/BlogReadMore.jsx";
 import { useEffect } from "react";
+import Privacy from "./pages/PrivacyPolicy/PrivacyPolicy.jsx";
+import TermsAndConditions from "./pages/TermsAndConditions/TermsAndConditions.jsx";
+import NotFound from "./pages/notFound/NotFound.jsx";
 
 function App() {
   const router = createBrowserRouter([
@@ -31,6 +34,10 @@ function App() {
           element: <Blogs />,
         },
         {
+          path: "/not-found/",
+          element: <NotFound />,
+        },
+        {
           path: "/blog/:title",
           element: <BlogReadMore />,
         },
@@ -42,6 +49,18 @@ function App() {
         {
           path: "/:city/",
           element: <Home />,
+        },
+        {
+          path: "/privacy-policy",
+          element: <Privacy />,
+        },
+        {
+          path: "/terms-and-conditions",
+          element: <TermsAndConditions />,
+        },
+        {
+          path: "/not-found/",
+          element: <NotFound />,
         },
         // {
         //   path: "/:city/:locality",

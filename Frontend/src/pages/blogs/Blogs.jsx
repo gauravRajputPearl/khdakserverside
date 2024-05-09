@@ -61,7 +61,9 @@ const Blogs = () => {
         />
         <link rel="canonical" href={`${window?.location?.href}`} />
       </Helmet>
-      <h1 className="text-2xl font-bold text-center mb-4">Blog</h1>
+      <h1 className="text-2xl font-bold text-center mb-4">
+        Blog - Latest Blogs & Articles on Call Girls and Escorts
+      </h1>
       <div className="w-full  flex mx-10 gap-10 flex-wrap">
         {Array.isArray(blogData) &&
           blogData.length > 0 &&
@@ -87,9 +89,9 @@ const Blogs = () => {
                 </div>
                 <div class="p-5 h-[200px] overflow-hidden ">
                   <a href="#">
-                    <h5 class="mb-2 text-xl font-bold tracking-tight text-gray-900 ">
+                    <h2 class="mb-2 text-xl font-bold tracking-tight text-gray-900 ">
                       {data?.title}
-                    </h5>
+                    </h2>
                   </a>
                   <p
                     dangerouslySetInnerHTML={{
