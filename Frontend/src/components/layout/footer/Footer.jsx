@@ -1,10 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import logo from "../../../assets/delhimazzaLogo.png";
-import { FaXTwitter } from "react-icons/fa6";
-import { FaLinkedinIn } from "react-icons/fa";
-import { FaPinterestP } from "react-icons/fa6";
-import { FaFacebookF } from "react-icons/fa6";
+import FacebookIcon from '@mui/icons-material/Facebook';
+import XIcon from '@mui/icons-material/X';
+import PinterestIcon from '@mui/icons-material/Pinterest';
+import LinkedInIcon from '@mui/icons-material/LinkedIn';
+
 
 const Footer = () => {
   return (
@@ -96,21 +97,21 @@ const Footer = () => {
               . All Rights Reserved.
             </span>
             <div class="flex mt-4 sm:justify-center sm:mt-0">
-              <Link href="#" class="text-black hover:text-gray-900 ">
-                <FaXTwitter />
+              <Link href="#" class="text-black hover:text-gray-900  ms-5">
+                <FacebookIcon fontSize="medium" />
+                <span class="sr-only">Facebook account</span>
+              </Link>
+              <Link href="#" class="text-black hover:text-gray-900 ms-5">
+                <XIcon fontSize="medium" />
                 <span class="sr-only">Twitter page</span>
               </Link>
               <Link href="#" class="text-black hover:text-gray-900  ms-5">
-                <FaLinkedinIn />
-                <span class="sr-only">Linkdin page</span>
-              </Link>
-              <Link href="#" class="text-black hover:text-gray-900  ms-5">
-                <FaPinterestP />
+                <PinterestIcon fontSize="medium"/>
                 <span class="sr-only">Pinterest page</span>
               </Link>
               <Link href="#" class="text-black hover:text-gray-900  ms-5">
-                <FaFacebookF />
-                <span class="sr-only">Facebook account</span>
+                <LinkedInIcon fontSize="medium"/>
+                <span class="sr-only">Linkedin page</span>
               </Link>
             </div>
           </div>

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import logo from "../../assets/delhimazzaLogo.png";
+import parse from 'html-react-parser'
 
 const Blogs = () => {
   // -----------------------------useState------------------------------------------
@@ -61,15 +62,15 @@ const Blogs = () => {
         />
         <link rel="canonical" href={`${window?.location?.href}`} />
       </Helmet>
-      <h1 className="text-2xl font-bold text-center mb-4">
+      <h1 className="text-2xl font-bold text-center my-2 sm:my-5  px-2">
         Blog - Latest Blogs & Articles on Call Girls and Escorts
       </h1>
-      <div className="w-full  flex mx-10 gap-10 flex-wrap">
+      <div className="w-full flex px-5 sm:px-10 gap-10 flex-wrap">
         {Array.isArray(blogData) &&
           blogData.length > 0 &&
           blogData.map((data) => {
             return (
-              <div class=" h-[500px] overflow-hidden relative max-w-sm bg-gradient-to-r from-amber-50 to-cyan-50 text-gray-700 border border-gray-200 rounded-lg shadow  w-[300px]">
+              <div class="mb-5 h-[500px] overflow-hidden relative max-w-sm bg-gradient-to-r from-amber-50 to-cyan-50 text-gray-700 border border-gray-200 rounded-lg shadow  w-[250px] sm:w-[300px] mx-auto">
                 <div class="relative">
                   <a href="#" alt="">
                     <img
@@ -93,12 +94,22 @@ const Blogs = () => {
                       {data?.title}
                     </h2>
                   </a>
-                  <p
+                  {/* <p
                     dangerouslySetInnerHTML={{
                       __html: data?.description,
                     }}
                     class="mb-3 font-normal text-gray-700 h-22 overflow-hidden !line-clamp-6 "
-                  ></p>
+                  ></p> */}
+                  <p
+                   
+                    class="mb-3 font-normal text-gray-700 h-22 overflow-hidden !line-clamp-6 "
+                  >
+                   
+                      {
+                        parse(data?.description) 
+                      }
+                  
+                  </p>
                 </div>
                 <div
                   onClick={() => {

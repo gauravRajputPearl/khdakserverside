@@ -115,7 +115,8 @@ let notHome = false;
 
 app.get("*", async (req, res) => {
   // const locality = await getLocalities();
-
+  const filePath = path.resolve(__dirname, "Frontend/dist", "index.html");
+  let htmlContent = await readFile(filePath, "utf-8");
   let location = "";
   let title, descriptoin;
 
@@ -153,6 +154,7 @@ app.get("*", async (req, res) => {
   } else if (req.url === "/not-found/") {
     notFound = false;
     notHome = true;
+    res.setHeader('X-Robots-Tag', 'noindex');
   } else if (req.url === "/privacy-policy") {
     notFound = false;
     notHome = true;
@@ -210,8 +212,7 @@ app.get("*", async (req, res) => {
   }
 
   // process.exit()
-  const filePath = path.resolve(__dirname, "Frontend/dist", "index.html");
-  let htmlContent = await readFile(filePath, "utf-8");
+  
 
   // replace title
   htmlContent = htmlContent.replace(
@@ -285,7 +286,7 @@ app.get("*", async (req, res) => {
   );
 
   // app.use((req, res, next) => {
-  notFound ? res.redirect("/not-found/") : res.send(htmlContent);
+  notFound ? res.setHeader('X-Robots-Tag', 'noindex').redirect("/not-found/") : res.send(htmlContent);
   // });
 });
 

@@ -8,6 +8,7 @@ import { Helmet } from "react-helmet";
 import CallGirls from "../call girls/CallGirls";
 import { changeCity, changeLocality } from "../../features/slices/contactSlice";
 import HeroSectionskeleton from "../../components/SkeletonUI/HeroSectionskeleton";
+import parse from 'html-react-parser'
 
 const Home = () => {
   const params = useParams();
@@ -148,7 +149,7 @@ const Home = () => {
               />
             </Helmet>
 
-            <div
+            {/* <div
               id="HeroSectionDescription"
               dangerouslySetInnerHTML={{
                 __html: heroSectionData?.description
@@ -174,7 +175,31 @@ const Home = () => {
                   ),
               }}
               className=" text-lg font-normal text-black lg:text-xl sm:px-16 xl:px-28 dark:text-gray-400"
-            ></div>
+            ></div> */}
+              <div   id="HeroSectionDescription"   className=" text-lg font-normal text-black lg:text-xl sm:px-16 xl:px-28 dark:text-gray-400">
+            {
+              parse(heroSectionData?.description  ?.replace(
+                /\[city\]/g,
+                (locality && locality).replace(/\b\w/g, (match) =>
+                  match.toUpperCase()
+                ) ||
+                  (cityName && cityName).replace(/\b\w/g, (match) =>
+                    match.toUpperCase()
+                  ) ||
+                  "Delhi"
+              )
+              ?.replace(
+                /\[location\]/g,
+                (locality && locality?.toString().toLowerCase())
+                  .trim()
+                  .replace(/ /g, "-") ||
+                  (cityName && cityName?.toString().toLowerCase())
+                    .trim()
+                    .replace(/ /g, "-") ||
+                  "delhi"
+              )) 
+            }
+          </div>
           </div>
         ) : (
           <HeroSectionskeleton />
@@ -196,7 +221,7 @@ const Home = () => {
                       {" "}
                       {data?.title}kk
                     </p> */}
-                    <div
+                    {/* <div
                       dangerouslySetInnerHTML={{
                         __html: data?.description
                           ?.replace(
@@ -220,7 +245,31 @@ const Home = () => {
                               "delhi"
                           ),
                       }}
-                    ></div>
+                    ></div> */}
+                     <div>
+                      {
+                        parse(data?.description?.replace(
+                          /\[city\]/g,
+                          (locality && locality).replace(/\b\w/g, (match) =>
+                            match.toUpperCase()
+                          ) ||
+                            cityName.replace(/\b\w/g, (match) =>
+                              match.toUpperCase()
+                            ) ||
+                            "Delhi"
+                        )
+                        ?.replace(
+                          /\[location\]/g,
+                          (locality && locality?.toString().toLowerCase())
+                            .trim()
+                            .replace(/ /g, "-") ||
+                            (cityName && cityName?.toString().toLowerCase())
+                              .trim()
+                              .replace(/ /g, "-") ||
+                            "delhi"
+                        )) 
+                      }
+                    </div>
                   </>
                 );
               })}

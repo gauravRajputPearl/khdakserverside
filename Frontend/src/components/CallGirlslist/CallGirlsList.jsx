@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import { useParams, useSearchParams } from "react-router-dom";
 import logo from "../../assets/delhimazzaLogo.png";
 import CallgirllistSkeleton from "../SkeletonUI/CallgirllistSkeleton";
+import parse from 'html-react-parser'
 
 // import { getContact } from "../../features/slices/contactSlice";
 
@@ -88,12 +89,22 @@ const CallGirlsList = ({ BASE_URL }) => {
                     <h2 class="text-text-lg leading-4 sm:text-lg md:text-2xl font-medium text-gray-700 mb-2">
                       {data?.title}
                     </h2>
-                    <h3
+                    {/* <h3
                       dangerouslySetInnerHTML={{ __html: data?.description }}
                       class="text-xs md:text-sm line-clamp-5 md:line-clamp-4 font-medium text-gray-700"
                     >
-                      {/* {data?.description} */}
+                    </h3> */}
+                    <h3
+                      
+                      class="text-xs md:text-sm line-clamp-5 md:line-clamp-4 font-medium text-gray-700"
+                    >
+                      {
+                        parse(data?.description) 
+                      }
+                    
                     </h3>
+                    
+                    
                   </div>
 
                   <div class=" grid grid-cols-2 gap-3 text-xs md:text-lg">

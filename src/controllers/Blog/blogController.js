@@ -47,6 +47,33 @@ export const getBlog = async (req, res) => {
     });
   }
 };
+export const getParticularBlog = async (req, res) => {
+  try {
+    const { id } = req?.params;
+    // console.log(params);
+
+    const actualData = id?.replaceAll("-", " ");
+    console.log(actualData, "datatta");
+    const blogs = await Blog.find({
+      title: new RegExp("^" + actualData + "$", "i"),
+    });
+
+    if (blogs) {
+      res.status(200).json({
+        success: "true",
+        data: blogs,
+      });
+    } else {
+      res.status(404).json({
+        message: "Data not found",
+      });
+    }
+  } catch (error) {
+    res.status(500).json({
+      message: error.message || "Internal Server Error",
+    });
+  }
+};
 
 // update blog controller
 export const updateBlog = async (req, res) => {
