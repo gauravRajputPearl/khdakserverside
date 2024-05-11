@@ -154,7 +154,9 @@ app.get("*", async (req, res) => {
   } else if (req.url === "/not-found/") {
     notFound = false;
     notHome = true;
+    htmlContent = htmlContent.replace(/<meta\s+name="robots"\s+content=".*?"\s*\/?>/i, '');
     res.setHeader('X-Robots-Tag', 'noindex');
+
   } else if (req.url === "/privacy-policy") {
     notFound = false;
     notHome = true;
