@@ -3,17 +3,22 @@ import viteLogo from "/vite.svg";
 import "./App.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Layout from "./components/layout/Layout.jsx";
-import Home from "./pages/home/Home.jsx";
+
 import Contact from "./pages/contact/Contact.jsx";
-import Blogs from "./pages/blogs/Blogs.jsx";
+
 import CallGirls from "./pages/call girls/CallGirls.jsx";
 import { store } from "./features/store.js";
 import { Provider } from "react-redux";
-import BlogReadMore from "./pages/blogs/BlogReadMore.jsx";
-import { useEffect } from "react";
+
+import React, { Suspense, useEffect } from "react";
 import Privacy from "./pages/PrivacyPolicy/PrivacyPolicy.jsx";
 import TermsAndConditions from "./pages/TermsAndConditions/TermsAndConditions.jsx";
 import NotFound from "./pages/notFound/NotFound.jsx";
+
+// Lazy load component
+const Blogs = React.lazy(() => import("./pages/blogs/Blogs.jsx"));
+const BlogReadMore = React.lazy(() => import("./pages/blogs/BlogReadMore.jsx"));
+const Home = React.lazy(() => import("./pages/home/Home.jsx"));
 
 function App() {
   const router = createBrowserRouter([
@@ -23,7 +28,17 @@ function App() {
       children: [
         {
           path: "/",
-          element: <Home />,
+          element: (
+            <Suspense
+              fallback={
+                <div className="h-[80vh] w-full flex justify-center items-center text-5xl text-red-500">
+                  Loading....
+                </div>
+              }
+            >
+              <Home />
+            </Suspense>
+          ),
         },
         {
           path: "/contact-us/",
@@ -31,7 +46,17 @@ function App() {
         },
         {
           path: "/blog/",
-          element: <Blogs />,
+          element: (
+            <Suspense
+              fallback={
+                <div className="h-[80vh] w-full flex justify-center items-center text-5xl text-red-500">
+                  Loading....
+                </div>
+              }
+            >
+              <Blogs />
+            </Suspense>
+          ),
         },
         {
           path: "/not-found/",
@@ -39,16 +64,31 @@ function App() {
         },
         {
           path: "/blog/:title",
-          element: <BlogReadMore />,
-        },
-
-        {
-          path: "/:city",
-          element: <Home />,
+          element: (
+            <Suspense
+              fallback={
+                <div className="h-[80vh] w-full flex justify-center items-center text-5xl text-red-500">
+                  Loading....
+                </div>
+              }
+            >
+              <BlogReadMore />
+            </Suspense>
+          ),
         },
         {
           path: "/:city/",
-          element: <Home />,
+          element: (
+            <Suspense
+              fallback={
+                <div className="h-[80vh] w-full flex justify-center items-center text-5xl text-red-500">
+                  Loading....
+                </div>
+              }
+            >
+              <Home />
+            </Suspense>
+          ),
         },
         {
           path: "/privacy-policy",

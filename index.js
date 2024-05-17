@@ -100,19 +100,6 @@ const locality = [];
 let notFound = false;
 let notHome = false;
 
-// function to get all localities
-// const getLocalities = async () => {
-//   const data = await City.find();
-
-//   for (let i = 0; i < data.length; i++) {
-//     locality.push(data[i]?.name);
-//     for (let j = 0; j < data[i]?.localities?.length; j++) {
-//       locality.push(data[i]?.localities[j]);
-//     }
-//   }
-//   return locality;
-// };
-
 app.get("*", async (req, res) => {
   // const locality = await getLocalities();
   const filePath = path.resolve(__dirname, "Frontend/dist", "index.html");
@@ -126,6 +113,27 @@ app.get("*", async (req, res) => {
     notHome = true;
     title = "Blog - Delhi Mazza Call Girls & Escorts Latest News";
     descriptoin = `"Delhi Mazza Call Girls & Escorts blogs, Latest News, Article and Contact WhatsApp Number with Profile List in Indian Cities"`;
+    htmlContent = htmlContent.replace(
+      /<script type="application\/ld\+json">\s*{\s*"@context":\s*"https:\/\/schema.org\/",\s*"@type":\s*"WebSite",[\s\S]*?<\/script>/,
+      `<script type="application/ld+json">
+{
+  "@context": "https://schema.org/",
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+    "@type": "ListItem",
+    "position": 1,
+    "name": "Call Girls in Delhi, Escort Service Available 24x7 in Delhi",
+    "item": "https://www.delhimazza.com/"
+  },{
+    "@type": "ListItem",
+    "position": 2,
+    "name": "Blog - Delhi Mazza Call Girls & Escorts Latest News",
+    "item": "https://www.delhimazza.com/blog/"
+  }]
+}
+</script>
+`
+    );
   } else if (req.url.startsWith("/blog/")) {
     console.log(
       "inside blog section-------------------------------------------------------------"
@@ -134,6 +142,10 @@ app.get("*", async (req, res) => {
     notFound = false;
     notHome = true;
     const blogPostSlug = req.url.substring(6)?.replace(/-/g, " ");
+    htmlContent = htmlContent.replace(
+      /<script type="application\/ld\+json">\s*{\s*"@context":\s*"https:\/\/schema.org\/",\s*"@type":\s*"WebSite",[\s\S]*?<\/script>/,
+      ""
+    );
 
     const data1 = await Blog.findOne({
       title: new RegExp("^" + blogPostSlug + "$", "i"),
@@ -154,9 +166,11 @@ app.get("*", async (req, res) => {
   } else if (req.url === "/not-found/") {
     notFound = false;
     notHome = true;
-    htmlContent = htmlContent.replace(/<meta\s+name="robots"\s+content=".*?"\s*\/?>/i, '');
-    res.setHeader('X-Robots-Tag', 'noindex');
-
+    htmlContent = htmlContent.replace(
+      /<meta\s+name="robots"\s+content=".*?"\s*\/?>/i,
+      ""
+    );
+    res.setHeader("X-Robots-Tag", "noindex");
   } else if (req.url === "/privacy-policy") {
     notFound = false;
     notHome = true;
@@ -172,6 +186,27 @@ app.get("*", async (req, res) => {
     notHome = true;
     title = "Contact Us - Delhi Mazza Call Girls and Escort Profiles";
     descriptoin = `"Contact Us at Delhi Mazza For Advertising, Booking and Reports Profile Listing"`;
+    htmlContent = htmlContent.replace(
+      /<script type="application\/ld\+json">\s*{\s*"@context":\s*"https:\/\/schema.org\/",\s*"@type":\s*"WebSite",[\s\S]*?<\/script>/,
+      `<script type="application/ld+json">
+{
+  "@context": "https://schema.org/",
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+    "@type": "ListItem",
+    "position": 1,
+    "name": "Call Girls in Delhi, Escort Service Available 24x7 in Delhi",
+    "item": "https://www.delhimazza.com/"
+  },{
+    "@type": "ListItem",
+    "position": 2,
+    "name": "Contact Us - Delhi Mazza Call Girls and Escort Profiles",
+    "item": "https://www.delhimazza.com/contact-us/"
+  }]
+}
+</script>
+`
+    );
   } else if (req.url.includes("call-girls-in-")) {
     notFound = false;
     notHome = true;
@@ -194,6 +229,27 @@ app.get("*", async (req, res) => {
     );
 
     if (data) {
+      htmlContent = htmlContent.replace(
+        /<script type="application\/ld\+json">\s*{\s*"@context":\s*"https:\/\/schema.org\/",\s*"@type":\s*"WebSite",[\s\S]*?<\/script>/,
+        `<script type="application/ld+json">
+{
+  "@context": "https://schema.org/",
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+    "@type": "ListItem",
+    "position": 1,
+    "name": "Call Girls in Delhi, Escort Service Available 24x7 in Delhi",
+    "item": "https://www.delhimazza.com/"
+  },{
+    "@type": "ListItem",
+    "position": 2,
+    "name": "Call Girls in ${newLocation}, Escort Service Available 24x7 in ${newLocation}",
+    "item": "https://www.delhimazza.com/call-girls-in-${newLocation}/"
+  }]
+}
+</script>
+`
+      );
       {
         // console.log("locality", locality);
         title = `Call Girls in ${newLocation}, Escort Service Available 24x7 in ${newLocation}`;
@@ -214,7 +270,6 @@ app.get("*", async (req, res) => {
   }
 
   // process.exit()
-  
 
   // replace title
   htmlContent = htmlContent.replace(
@@ -277,7 +332,7 @@ app.get("*", async (req, res) => {
     );
     // remove the script from the other pages than home page
     htmlContent = htmlContent.replace(
-      /<script[^>]*type="application\/ld\+json"[^>]*>[\s\S]*?<\/script>/gi,
+      /<script type="application\/ld\+json">\s*{\s*"@context":\s*"https:\/\/schema.org",\s*"@type":\s*"Organization",[\s\S]*?<\/script>/,
       ""
     );
   }
@@ -288,7 +343,9 @@ app.get("*", async (req, res) => {
   );
 
   // app.use((req, res, next) => {
-  notFound ? res.setHeader('X-Robots-Tag', 'noindex').redirect("/not-found/") : res.send(htmlContent);
+  notFound
+    ? res.setHeader("X-Robots-Tag", "noindex").redirect("/not-found/")
+    : res.send(htmlContent);
   // });
 });
 
