@@ -18,7 +18,8 @@ const CallGirlsList = ({ BASE_URL }) => {
   const [contactData, setContactData] = useState(null);
   const { selectedLocality } = useSelector((state) => state.location);
 
-  const getContacts = async (url) => {
+
+  const getContacts = async (url) => { // cityName = "Delhi"
     console.log(url);
     console.log(url, "hii");
     try {

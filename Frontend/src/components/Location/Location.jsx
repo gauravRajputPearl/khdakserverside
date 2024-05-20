@@ -56,9 +56,18 @@ const Location = ({ BASE_URL }) => {
           (locality) => locality.toLowerCase() === urlLocality.toLowerCase()
         )
       );
-      if (matchedLocation) {
-        dispatch(changeCity(matchedLocation.name));
+
+      const matchedCity = location.find(
+        (city) => city.name?.toLowerCase() === urlLocality.toLowerCase()
+      );
+
+      if (matchedLocation || matchedCity) {
+        console.log("yes");
+        dispatch(changeCity(matchedLocation?.name || matchedCity?.name));
         dispatch(changeLocality(urlLocality));
+      } else {
+        console.log("no");
+        navigate("/not-found");
       }
     }
   }, [params.city, location]);

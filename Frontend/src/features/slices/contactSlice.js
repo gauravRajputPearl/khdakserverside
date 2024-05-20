@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   contactData: null,
-  cityName: "Delhi",
+  cityName: "",
   locality:""
 };
 
