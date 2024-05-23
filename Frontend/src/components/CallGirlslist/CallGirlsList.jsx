@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import { useParams, useSearchParams } from "react-router-dom";
 import logo from "../../assets/delhimazzaLogo.png";
 import CallgirllistSkeleton from "../SkeletonUI/CallgirllistSkeleton";
-import parse from 'html-react-parser'
+import parse from "html-react-parser";
 
 // import { getContact } from "../../features/slices/contactSlice";
 
@@ -18,8 +18,8 @@ const CallGirlsList = ({ BASE_URL }) => {
   const [contactData, setContactData] = useState(null);
   const { selectedLocality } = useSelector((state) => state.location);
 
-
-  const getContacts = async (url) => { // cityName = "Delhi"
+  const getContacts = async (url) => {
+    // cityName = "Delhi"
     console.log(url);
     console.log(url, "hii");
     try {
@@ -41,7 +41,9 @@ const CallGirlsList = ({ BASE_URL }) => {
 
     // console.log("this is the city", searchParams.get("city"));
 
-    getContacts(url);
+    if (url) {
+      getContacts(url);
+    }
   }, [cityName]);
 
   return (
@@ -95,17 +97,9 @@ const CallGirlsList = ({ BASE_URL }) => {
                       class="text-xs md:text-sm line-clamp-5 md:line-clamp-4 font-medium text-gray-700"
                     >
                     </h3> */}
-                    <h3
-                      
-                      class="text-xs md:text-sm line-clamp-5 md:line-clamp-4 font-medium text-gray-700"
-                    >
-                      {
-                        parse(data?.description) 
-                      }
-                    
+                    <h3 class="text-xs md:text-sm line-clamp-5 md:line-clamp-4 font-medium text-gray-700">
+                      {parse(data?.description)}
                     </h3>
-                    
-                    
                   </div>
 
                   <div class=" grid grid-cols-2 gap-3 text-xs md:text-lg">

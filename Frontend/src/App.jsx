@@ -14,6 +14,8 @@ import React, { Suspense, useEffect } from "react";
 import Privacy from "./pages/PrivacyPolicy/PrivacyPolicy.jsx";
 import TermsAndConditions from "./pages/TermsAndConditions/TermsAndConditions.jsx";
 import NotFound from "./pages/notFound/NotFound.jsx";
+import BlogSkeleton from "./components/SkeletonUI/BlogSkeleton.jsx";
+import BlogReadMoreskeleton from "./components/SkeletonUI/BlogReadMoreskeleton.jsx";
 
 // Lazy load component
 const Blogs = React.lazy(() => import("./pages/blogs/Blogs.jsx"));
@@ -28,17 +30,7 @@ function App() {
       children: [
         {
           path: "/",
-          element: (
-            <Suspense
-              fallback={
-                <div className="h-[80vh] w-full flex justify-center items-center text-5xl text-red-500">
-                  Loading....
-                </div>
-              }
-            >
-              <Home />
-            </Suspense>
-          ),
+          element: <Home />,
         },
         {
           path: "/contact-us/",
@@ -49,8 +41,8 @@ function App() {
           element: (
             <Suspense
               fallback={
-                <div className="h-[80vh] w-full flex justify-center items-center text-5xl text-red-500">
-                  Loading....
+                <div>
+                  <BlogSkeleton />
                 </div>
               }
             >
@@ -65,13 +57,7 @@ function App() {
         {
           path: "/blog/:title",
           element: (
-            <Suspense
-              fallback={
-                <div className="h-[80vh] w-full flex justify-center items-center text-5xl text-red-500">
-                  Loading....
-                </div>
-              }
-            >
+            <Suspense fallback={<BlogReadMoreskeleton />}>
               <BlogReadMore />
             </Suspense>
           ),

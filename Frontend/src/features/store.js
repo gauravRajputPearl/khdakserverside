@@ -21,11 +21,11 @@ const reducer = combineReducers({
 const persistedReducer = persistReducer(persistConfig, reducer);
 
 export const store = configureStore({
-  reducer: persistedReducer,
+  reducer,
 });
 // Create a Redux Persistor
 export const persistor = persistStore(store);
 
-export const clearState = () => {
-  persistor.purge(); // Clear the persisted state
-};
+// export const clearState = () => {
+//   persistor.purge(); // Clear the persisted state
+// };

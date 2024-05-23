@@ -52,14 +52,15 @@ const Location = ({ BASE_URL }) => {
       const urlLocality = params.city.split("-").slice(3).join(" "); // Extracting locality name
 
       const matchedLocation = location.find((loc) =>
-        loc.localities.some(
-          (locality) => locality.toLowerCase() === urlLocality.toLowerCase()
-        )
+        loc.localities.some((locality) => {
+          console.log(locality.toLowerCase());
+          return locality.toLowerCase().trim() === urlLocality.toLowerCase();
+        })
       );
 
-      const matchedCity = location.find(
-        (city) => city.name?.toLowerCase() === urlLocality.toLowerCase()
-      );
+      const matchedCity = location.find((city) => {
+        return city.name?.toLowerCase() === urlLocality.toLowerCase();
+      });
 
       if (matchedLocation || matchedCity) {
         console.log("yes");
@@ -70,7 +71,7 @@ const Location = ({ BASE_URL }) => {
         navigate("/not-found");
       }
     }
-  }, [params.city, location]);
+  }, [params, location]);
 
   return (
     <div className="w-full p-4 bg-gradient-to-r from-amber-50 to-cyan-50 text-gray-700 mb-5">

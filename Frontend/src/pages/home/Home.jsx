@@ -8,7 +8,7 @@ import { Helmet } from "react-helmet";
 import CallGirls from "../call girls/CallGirls";
 import { changeCity, changeLocality } from "../../features/slices/contactSlice";
 import HeroSectionskeleton from "../../components/SkeletonUI/HeroSectionskeleton";
-import parse from 'html-react-parser'
+import parse from "html-react-parser";
 
 const Home = () => {
   const params = useParams();
@@ -79,18 +79,22 @@ const Home = () => {
       (
         locality && locality[0]?.toLowerCase() + locality.slice(1)
       )?.toLowerCase() ||
-        cityName[0].toLowerCase() + cityName.slice(1)?.toLowerCase() ||
+        cityName[0]?.toLowerCase() + cityName?.slice(1)?.toLowerCase() ||
         "delhi"
     );
   }
   // useEffects
   useEffect(() => {
-    if (locality == "" && cityName?.toLowerCase() == "delhi") {
-      getDehiHeroSectionData();
-      delhiFooterSection();
-    } else {
-      getHeroSectionData();
-      FooterSection();
+    console.log("cityname", cityName);
+    console.log("locality", locality);
+    if (cityName) {
+      if (locality == "" && cityName?.toLowerCase() == "delhi") {
+        getDehiHeroSectionData();
+        delhiFooterSection();
+      } else {
+        getHeroSectionData();
+        FooterSection();
+      }
     }
 
     // navigate(`${params?.city?.toLowerCase()}`);
@@ -99,7 +103,7 @@ const Home = () => {
     //   params.set("city", `${cityName}`);
     //   return params;
     // });
-  }, [cityName, locality]);
+  }, [cityName, location]);
 
   // redirect to home for a specific route
   useEffect(() => {
@@ -176,30 +180,34 @@ const Home = () => {
               }}
               className=" text-lg font-normal text-black lg:text-xl sm:px-16 xl:px-28 dark:text-gray-400"
             ></div> */}
-              <div   id="HeroSectionDescription"   className=" text-lg font-normal text-black lg:text-xl sm:px-16 xl:px-28 dark:text-gray-400">
-            {
-              parse(heroSectionData?.description  ?.replace(
-                /\[city\]/g,
-                (locality && locality).replace(/\b\w/g, (match) =>
-                  match.toUpperCase()
-                ) ||
-                  (cityName && cityName).replace(/\b\w/g, (match) =>
-                    match.toUpperCase()
-                  ) ||
-                  "Delhi"
-              )
-              ?.replace(
-                /\[location\]/g,
-                (locality && locality?.toString().toLowerCase())
-                  .trim()
-                  .replace(/ /g, "-") ||
-                  (cityName && cityName?.toString().toLowerCase())
-                    .trim()
-                    .replace(/ /g, "-") ||
-                  "delhi"
-              )) 
-            }
-          </div>
+            <div
+              id="HeroSectionDescription"
+              className=" text-lg font-normal text-black lg:text-xl sm:px-16 xl:px-28 dark:text-gray-400"
+            >
+              {parse(
+                heroSectionData?.description
+                  ?.replace(
+                    /\[city\]/g,
+                    (locality && locality).replace(/\b\w/g, (match) =>
+                      match.toUpperCase()
+                    ) ||
+                      (cityName && cityName).replace(/\b\w/g, (match) =>
+                        match.toUpperCase()
+                      ) ||
+                      "Delhi"
+                  )
+                  ?.replace(
+                    /\[location\]/g,
+                    (locality && locality?.toString().toLowerCase())
+                      .trim()
+                      .replace(/ /g, "-") ||
+                      (cityName && cityName?.toString().toLowerCase())
+                        .trim()
+                        .replace(/ /g, "-") ||
+                      "delhi"
+                  )
+              )}
+            </div>
           </div>
         ) : (
           <HeroSectionskeleton />
@@ -246,29 +254,30 @@ const Home = () => {
                           ),
                       }}
                     ></div> */}
-                     <div>
-                      {
-                        parse(data?.description?.replace(
-                          /\[city\]/g,
-                          (locality && locality).replace(/\b\w/g, (match) =>
-                            match.toUpperCase()
-                          ) ||
-                            cityName.replace(/\b\w/g, (match) =>
+                    <div>
+                      {parse(
+                        data?.description
+                          ?.replace(
+                            /\[city\]/g,
+                            (locality && locality).replace(/\b\w/g, (match) =>
                               match.toUpperCase()
                             ) ||
-                            "Delhi"
-                        )
-                        ?.replace(
-                          /\[location\]/g,
-                          (locality && locality?.toString().toLowerCase())
-                            .trim()
-                            .replace(/ /g, "-") ||
-                            (cityName && cityName?.toString().toLowerCase())
+                              cityName.replace(/\b\w/g, (match) =>
+                                match.toUpperCase()
+                              ) ||
+                              "Delhi"
+                          )
+                          ?.replace(
+                            /\[location\]/g,
+                            (locality && locality?.toString().toLowerCase())
                               .trim()
                               .replace(/ /g, "-") ||
-                            "delhi"
-                        )) 
-                      }
+                              (cityName && cityName?.toString().toLowerCase())
+                                .trim()
+                                .replace(/ /g, "-") ||
+                              "delhi"
+                          )
+                      )}
                     </div>
                   </>
                 );

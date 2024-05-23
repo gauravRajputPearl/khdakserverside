@@ -1,11 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import logo from "../../../assets/delhimazzaLogo.png";
-import FacebookIcon from '@mui/icons-material/Facebook';
-import XIcon from '@mui/icons-material/X';
-import PinterestIcon from '@mui/icons-material/Pinterest';
-import LinkedInIcon from '@mui/icons-material/LinkedIn';
-
+import FacebookIcon from "@mui/icons-material/Facebook";
+import XIcon from "@mui/icons-material/X";
+import PinterestIcon from "@mui/icons-material/Pinterest";
+import LinkedInIcon from "@mui/icons-material/LinkedIn";
 
 const Footer = () => {
   return (
@@ -23,8 +22,8 @@ const Footer = () => {
         <div class="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
           <div class="md:flex md:justify-between">
             <div class="mb-6 md:mb-0">
-              <Link href="https://flowbite.com/" class="flex items-center">
-                <img src={logo} class="h-16 me-3" alt=" Logo" />
+              <Link href="/" class="flex items-center">
+                <img src={logo} class="h-16 w-56 me-3" alt=" Logo" />
               </Link>
             </div>
             <div class="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3 text-white">
@@ -106,11 +105,11 @@ const Footer = () => {
                 <span class="sr-only">Twitter page</span>
               </Link>
               <Link href="#" class="text-black hover:text-gray-900  ms-5">
-                <PinterestIcon fontSize="medium"/>
+                <PinterestIcon fontSize="medium" />
                 <span class="sr-only">Pinterest page</span>
               </Link>
               <Link href="#" class="text-black hover:text-gray-900  ms-5">
-                <LinkedInIcon fontSize="medium"/>
+                <LinkedInIcon fontSize="medium" />
                 <span class="sr-only">Linkedin page</span>
               </Link>
             </div>
